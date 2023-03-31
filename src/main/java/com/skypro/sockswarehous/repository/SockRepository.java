@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * репозиторий для носков
  */
 @Repository
-public interface SockRepository extends JpaRepository<Sock, Integer> {
+public interface SockRepository extends JpaRepository<Sock, Long> {
 
 }
