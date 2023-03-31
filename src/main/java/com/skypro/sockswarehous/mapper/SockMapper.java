@@ -6,7 +6,7 @@ import com.skypro.sockswarehous.entity.Sock;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface SockMapper {
 
     Sock toEntity(SockDTO sockDTO);
