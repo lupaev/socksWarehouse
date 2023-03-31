@@ -10,5 +10,5 @@ import com.skypro.sockswarehous.entity.Sock;
 public interface SockService {
 
 
-     Sock addSocks(String color, Integer cottonPart, Integer quantity);
+     SockDTO addSocks(SockDTO sockDTO);
 }

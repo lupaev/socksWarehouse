@@ -1,5 +1,6 @@
 package com.skypro.sockswarehous.service.impl;
 
+import com.skypro.sockswarehous.dto.SockDTO;
 import com.skypro.sockswarehous.entity.Sock;
 import com.skypro.sockswarehous.mapper.SockMapper;
 import com.skypro.sockswarehous.repository.SockRepository;
@@ -23,9 +24,8 @@ public class SockServiceImpl implements SockService {
 
 
     @Override
-    public Sock addSocks(String color, Integer cottonPart, Integer quantity) {
-        Sock sock = new Sock(color, cottonPart, quantity);
-        sockRepository.save(sock);
-        return sock;
+    public SockDTO addSocks(SockDTO sockDTO) {
+        sockRepository.save(sockMapper.toEntity(sockDTO));
+        return sockDTO;
     }
 }

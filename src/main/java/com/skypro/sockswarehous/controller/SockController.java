@@ -29,30 +29,30 @@ public class SockController {
         this.sockService = sockService;
     }
 
-    @Operation(summary = "Добавить приход носков на склад")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "OK",
-                    content = {
-                            @Content(
-                                    mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = SockDTO.class)))
-                    }
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "bad request"
-            ),
-            @ApiResponse(
-                    responseCode = "500",
-                    description = "Internal Server Error"
-            ),
-    })
-    @PostMapping(value = "/income")
-    public ResponseEntity<Sock> addSocks(@RequestParam String color, @RequestParam Integer cottonPart, @RequestParam Integer quantity){
-        return ResponseEntity.ok(sockService.addSocks(color, cottonPart, quantity));
-    }
+  @Operation(summary = "Добавить приход носков на склад")
+  @ApiResponses({
+      @ApiResponse(
+          responseCode = "200",
+          description = "OK",
+          content = {
+              @Content(
+                  mediaType = "application/json",
+                  array = @ArraySchema(schema = @Schema(implementation = SockDTO.class)))
+          }
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          description = "bad request"
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Internal Server Error"
+      ),
+  })
+  @PostMapping(value = "/income")
+  public ResponseEntity<SockDTO> addSocks(@RequestBody SockDTO sockDTO){
+    return ResponseEntity.ok(sockService.addSocks(sockDTO));
+  }
 
 
 }
