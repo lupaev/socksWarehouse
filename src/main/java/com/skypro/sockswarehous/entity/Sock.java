@@ -3,11 +3,9 @@ package com.skypro.sockswarehous.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Getter
@@ -16,17 +14,21 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "socks")
 @Entity
 public class Sock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
+    @Column(name = "color")
     String color;
 
-    Integer CottonPare;
+    @Column(name = "cotton_part")
+    Integer CottonPart;
 
+    @Column(name = "quantity")
     Integer quantity;
 
     @Override
@@ -38,7 +40,7 @@ public class Sock {
 
         if (!Objects.equals(id, sock.id)) return false;
         if (!Objects.equals(color, sock.color)) return false;
-        if (!Objects.equals(CottonPare, sock.CottonPare)) return false;
+        if (!Objects.equals(CottonPart, sock.CottonPart)) return false;
         return Objects.equals(quantity, sock.quantity);
     }
 
@@ -46,7 +48,7 @@ public class Sock {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (color != null ? color.hashCode() : 0);
-        result = 31 * result + (CottonPare != null ? CottonPare.hashCode() : 0);
+        result = 31 * result + (CottonPart != null ? CottonPart.hashCode() : 0);
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
         return result;
     }
