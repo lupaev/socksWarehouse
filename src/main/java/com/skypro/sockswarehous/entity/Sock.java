@@ -3,8 +3,11 @@ package com.skypro.sockswarehous.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import javax.persistence.*;
+
+/**
+ * Сущность Носков
+ */
 
 @Getter
 @Setter

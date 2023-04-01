@@ -1,10 +1,13 @@
 package com.skypro.sockswarehous.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-
+/**
+ * DTO сущности Носков
+ */
 
 @Getter
 @Setter
@@ -15,6 +18,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SockDTO {
 
+    @JsonIgnore
     Long id;
 
     String color;
