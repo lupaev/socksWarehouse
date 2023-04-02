@@ -17,8 +17,8 @@ public interface SockRepository extends JpaRepository<Sock, Long> {
 
     void deleteAllByColorAndCottonPart(String color, Integer cottonPart);
 
-    Collection<Sock> findByColorAndCottonPartGreaterThan(String color, Integer cottonPart);
-    Collection<Sock> findByColorAndCottonPartLessThan(String color, Integer cottonPart);
+    Collection<Sock> findByColorAndCottonPartGreaterThanEqual(String color, Integer cottonPart);
+    Collection<Sock> findByColorAndCottonPartLessThanEqual(String color, Integer cottonPart);
     Collection<Sock> findByColorAndCottonPartEquals(String color, Integer cottonPart);
 
 

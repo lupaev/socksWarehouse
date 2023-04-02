@@ -83,11 +83,11 @@ public class SockServiceImpl implements SockService {
         log.info("Выборка товара в соответствии с заданными параметрами");
         switch (operation) {
             case "moreThan": {
-                Collection<Sock> socks = sockRepository.findByColorAndCottonPartGreaterThan(color, cottonPart);
+                Collection<Sock> socks = sockRepository.findByColorAndCottonPartGreaterThanEqual(color, cottonPart);
                 return socks.stream().mapToInt(Sock::getQuantity).sum();
             }
             case "lessThan": {
-                Collection<Sock> socks = sockRepository.findByColorAndCottonPartLessThan(color, cottonPart);
+                Collection<Sock> socks = sockRepository.findByColorAndCottonPartLessThanEqual(color, cottonPart);
                 return socks.stream().mapToInt(Sock::getQuantity).sum();
             }
             case "equal": {
