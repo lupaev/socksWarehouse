@@ -100,7 +100,7 @@ class SockControllerTest {
         String url = "/socks";
         Sock sock = new Sock(1L, "red", 20, 100);
         Collection<Sock> socks = new ArrayList<Sock>(List.of(sock));
-        when(sockRepository.findByColorAndCottonPartGreaterThan(sock.getColor(), sock.getCottonPart()))
+        when(sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart()))
                 .thenReturn(socks);
         mockMvc.perform(get(url)
                         .param("color", sock.getColor())

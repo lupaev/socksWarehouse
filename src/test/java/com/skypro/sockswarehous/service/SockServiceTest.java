@@ -135,16 +135,16 @@ class SockServiceTest {
         SockServiceImpl sockService = mock(SockServiceImpl.class);
         Collection<Sock> socks = new ArrayList<Sock>(List.of(sock));
 
-        when(sockRepository.findByColorAndCottonPartGreaterThan(sock.getColor(), sock.getCottonPart())).thenReturn(socks);
+        when(sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart())).thenReturn(socks);
         when(sockService.getSocks(sock.getColor(), sock.getCottonPart(), "moreThan")).thenReturn(sock.getQuantity());
 
-        assertThat(sockRepository.findByColorAndCottonPartGreaterThan(sock.getColor(), sock.getCottonPart()))
+        assertThat(sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart()))
                 .isNotNull().isEqualTo(socks).isExactlyInstanceOf(ArrayList.class);
         assertThat(sockService.getSocks(sock.getColor(), sock.getCottonPart(), "moreThan"))
                 .isNotNull().isEqualTo(sock.getQuantity()).isExactlyInstanceOf(Integer.class);
         assertDoesNotThrow(() -> sockService.getSocks(sock.getColor(), sock.getCottonPart(), "moreThan"));
 
-        verify(sockRepository, times(1)).findByColorAndCottonPartGreaterThan(sock.getColor(), sock.getCottonPart());
+        verify(sockRepository, times(1)).findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart());
         verify(sockService, times(2)).getSocks(sock.getColor(), sock.getCottonPart(), "moreThan");
 
     }
@@ -153,13 +153,13 @@ class SockServiceTest {
     void getSocksNegativeTest() {
         SockServiceImpl sockService = mock(SockServiceImpl.class);
 
-        doThrow(NullPointerException.class).when(sockRepository).findByColorAndCottonPartGreaterThan(sock.getColor(), sock.getCottonPart());
+        doThrow(NullPointerException.class).when(sockRepository).findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart());
         doThrow(NullPointerException.class).when(sockService).getSocks(sock.getColor(), sock.getCottonPart(), "moreThan");
 
-        assertThrows(NullPointerException.class, () -> sockRepository.findByColorAndCottonPartGreaterThan(sock.getColor(), sock.getCottonPart()));
+        assertThrows(NullPointerException.class, () -> sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart()));
         assertThrows(NullPointerException.class, () -> sockService.getSocks(sock.getColor(), sock.getCottonPart(), "moreThan"));
 
-        verify(sockRepository, times(1)).findByColorAndCottonPartGreaterThan(sock.getColor(), sock.getCottonPart());
+        verify(sockRepository, times(1)).findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart());
         verify(sockService, times(1)).getSocks(sock.getColor(), sock.getCottonPart(), "moreThan");
 
     }
