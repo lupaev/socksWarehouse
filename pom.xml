@@ -16,6 +16,7 @@
     <properties>
         <java.version>11</java.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+        <start-class>com.skypro.sockswarehous.SocksWarehousApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -65,6 +66,21 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.skypro.sockswarehous.SocksWarehousApplication</mainClass>
+                    <layout>JAR</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
