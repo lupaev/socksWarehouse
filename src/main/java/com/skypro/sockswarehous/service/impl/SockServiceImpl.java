@@ -2,6 +2,7 @@ package com.skypro.sockswarehous.service.impl;
 
 import com.skypro.sockswarehous.dto.SockDTO;
 import com.skypro.sockswarehous.entity.Sock;
+import com.skypro.sockswarehous.exception.ElemNotFound;
 import com.skypro.sockswarehous.exception.QuantityNotEnoughException;
 import com.skypro.sockswarehous.mapper.SockMapper;
 import com.skypro.sockswarehous.repository.SockRepository;
@@ -56,7 +57,7 @@ public class SockServiceImpl implements SockService {
         if (quantityStock > quantity) { //сравниваем количество в запросе на отгрузку и имеющееся на складе
             log.info("В наличие на складе находится {} пар носков", quantity);
             Integer result = quantityStock - quantity;
-            sockRepository.deleteAllByColorAndCottonPart(color, cottonPart);// удаляем партии со склада
+            sockRepository.deleteAllByColorAndCottonPart(color, cottonPart);// удаляем партии со склада для отгрузки
             Sock sock = new Sock();
             sock.setColor(color);
             sock.setQuantity(result);
@@ -94,7 +95,7 @@ public class SockServiceImpl implements SockService {
                 return socks.stream().mapToInt(Sock::getQuantity).sum();
             }
             default:
-                throw new RuntimeException("Товара соответствуещего заданным параметрам нет на складе");
+                throw new ElemNotFound("Товара соответствуещего заданным параметрам нет на складе");
         }
 
     }
