@@ -1,0 +1,26 @@
+version: "3.10"
+services:
+  backend:
+    image: 'socks:latest'
+    container_name: app
+    depends_on:
+      - db
+    build: .
+    environment:
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/socks
+    - SPRING_DATASOURCE_USERNAME=postgres
+    - SPRING_DATASOURCE_PASSWORD=postgres
+    ports:
+      - "8080:8080"
+
+  db:
+    image: 'postgres:15.2'
+    restart: always
+    container_name: db
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: socks
+    ports:
+      - "5432:5432"
+
