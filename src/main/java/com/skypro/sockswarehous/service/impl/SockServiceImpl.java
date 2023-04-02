@@ -19,9 +19,9 @@ import java.util.Collection;
 @Slf4j
 public class SockServiceImpl implements SockService {
 
-    private SockRepository sockRepository;
+    private final SockRepository sockRepository;
 
-    private SockMapper sockMapper;
+    private final SockMapper sockMapper;
 
     public SockServiceImpl(SockRepository sockRepository, SockMapper sockMapper) {
         this.sockRepository = sockRepository;

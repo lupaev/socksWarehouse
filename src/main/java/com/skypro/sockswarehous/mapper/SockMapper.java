@@ -5,6 +5,10 @@ import com.skypro.sockswarehous.dto.SockDTO;
 import com.skypro.sockswarehous.entity.Sock;
 import org.mapstruct.Mapper;
 
+/**
+ * Маппер
+ */
+
 @Mapper
 public interface SockMapper {
 
