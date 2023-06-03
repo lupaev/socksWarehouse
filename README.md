@@ -7,11 +7,11 @@
 ### Используемые технологии:
 - Java 11
 - Spring 5.3.26
-- Spring Boot 2.7.10
+- Spring Boot 2.7.12
 - PostgreSQL 15.2
 - Liquibase
-- MupStruct 1.5.3
-- Lombok 1.18.26
+- MupStruct 1.5.5
+- Lombok 1.18.28
 
 ### Установка и запуск Docker 
 
