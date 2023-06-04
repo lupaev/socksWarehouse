@@ -1,3 +1,6 @@
+--liquibase formatted sql
+
+--changeset sergej:1
 create table socks
 (
     id BIGSERIAL PRIMARY KEY,
