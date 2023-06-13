@@ -15,7 +15,7 @@
 
 ### Установка и запуск Docker 
 
-``git clone https://github.com/lupaev/socksWarehous.git && cd socksWarehous && mvn install && docker-compose up -d``
+``git clone https://github.com/lupaev/socksWarehous.git && cd socksWarehous && ./mvnw clean install && docker-compose up -d``
 
 для выключения команда:
 
