@@ -58,20 +58,22 @@ public class SockServiceImpl implements SockService {
   public void outcomeSocks(String color, Integer cottonPart, Integer quantity)
       throws QuantityNotEnoughException {
     log.info(FormLogInfo.getInfo());
-    Collection<Sock> socks = sockRepository.findByColorAndCottonPart(color,
-        cottonPart); // Находим общее количество имеющееся на складе по заданым параметрам
+    Collection<Sock> socks = sockRepository.findByColorAndCottonPart(color, cottonPart); // Находим общее количество имеющееся на складе по заданым параметрам
     Integer quantityStock = socks.stream().mapToInt(Sock::getQuantity).sum();
-    if (quantityStock
-        > quantity) { //сравниваем количество в запросе на отгрузку и имеющееся на складе
+    if (quantityStock > quantity) { //сравниваем количество в запросе на отгрузку и имеющееся на складе
       log.info("В наличие на складе находится {} пар носков", quantity);
       Integer result = quantityStock - quantity;
-      sockRepository.deleteAllByColorAndCottonPart(color,
-          cottonPart);// удаляем партии со склада для отгрузки
+      sockRepository.deleteAllByColorAndCottonPart(color, cottonPart);// удаляем партии со склада для отгрузки
       Sock sock = new Sock();
       sock.setColor(color);
       sock.setQuantity(result);
       sock.setCottonPart(cottonPart);
       sockRepository.save(sock); // сохраняем остатки после отгрузки
+      log.info("Остаток на складе после отгрузки составляет {} пар", result);
+    } else if (quantityStock.equals(quantity)) {
+      log.info("В наличие на складе находится {} пар носков", quantity);
+      Integer result = quantityStock - quantity;
+      sockRepository.deleteAllByColorAndCottonPart(color, cottonPart);
       log.info("Остаток на складе после отгрузки составляет {} пар", result);
     } else {
       log.info(FormLogInfo.getInfo());
