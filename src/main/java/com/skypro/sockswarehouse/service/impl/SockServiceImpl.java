@@ -3,11 +3,14 @@ package com.skypro.sockswarehouse.service.impl;
 import com.querydsl.core.types.Predicate;
 import com.skypro.sockswarehouse.dto.SockDTO;
 import com.skypro.sockswarehouse.entity.Sock;
+import com.skypro.sockswarehouse.exception.ElemNotFound;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
 import com.skypro.sockswarehouse.loger.FormLogInfo;
 import com.skypro.sockswarehouse.mapper.SockMapper;
 import com.skypro.sockswarehouse.repository.SockRepository;
 import com.skypro.sockswarehouse.service.SockService;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +42,7 @@ public class SockServiceImpl implements SockService {
    * @return
    */
   @Override
-  public SockDTO incomeSocks(SockDTO sockDTO) {
+  public SockDTO add(SockDTO sockDTO) {
     log.info(FormLogInfo.getInfo());
     sockRepository.save(sockMapper.toEntity(sockDTO));
     return sockDTO;
@@ -85,6 +88,21 @@ public class SockServiceImpl implements SockService {
   public Page<SockDTO> getAll(Predicate predicate, Pageable pageable) {
     Page<Sock> entities = sockRepository.findAll(predicate, pageable);
     return entities.map(sockMapper::toDTO);
+  }
+
+  @Override
+  public List<Sock> findAll() {
+    return new ArrayList<>(sockRepository.findAll());
+  }
+
+  @Override
+  public SockDTO findById(Long id) {
+    return sockMapper.toDTO(sockRepository.findById(id).orElseThrow(ElemNotFound::new));
+  }
+
+  @Override
+  public void deleteById(Long id) {
+    sockRepository.deleteById(id);
   }
 
 }

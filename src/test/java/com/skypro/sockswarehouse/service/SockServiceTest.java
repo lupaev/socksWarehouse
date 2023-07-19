@@ -1,7 +1,6 @@
 package com.skypro.sockswarehouse.service;
 
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Visitor;
 import com.skypro.sockswarehouse.dto.SockDTO;
 import com.skypro.sockswarehouse.entity.Sock;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
@@ -19,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
@@ -60,16 +58,16 @@ class SockServiceTest {
     SockMapper sockMapper = mock(SockMapper.class);
 
     when(sockMapper.toEntity(sockDTO)).thenReturn(sock);
-    when(sockService.incomeSocks(sockDTO)).thenReturn(sockDTO);
+    when(sockService.add(sockDTO)).thenReturn(sockDTO);
     when(sockRepository.save(any(Sock.class))).thenReturn(sock);
-    assertThat(sockService.incomeSocks(sockDTO)).isNotNull().isEqualTo(sockDTO)
+    assertThat(sockService.add(sockDTO)).isNotNull().isEqualTo(sockDTO)
         .isExactlyInstanceOf(SockDTO.class);
     assertThat(sockMapper.toEntity(sockDTO)).isNotNull().isEqualTo(sock)
         .isExactlyInstanceOf(Sock.class);
     assertThat(sockRepository.save(sock)).isNotNull().isExactlyInstanceOf(Sock.class);
 
     verify(sockRepository, times(1)).save(sock);
-    verify(sockService, times(1)).incomeSocks(sockDTO);
+    verify(sockService, times(1)).add(sockDTO);
     verify(sockMapper, times(1)).toEntity(sockDTO);
 
   }
@@ -81,14 +79,14 @@ class SockServiceTest {
 
     when(sockMapper.toEntity(any())).thenThrow(NullPointerException.class);
     when(sockRepository.save(any())).thenThrow(RuntimeException.class);
-    when(sockService.incomeSocks(any())).thenThrow(RuntimeException.class);
+    when(sockService.add(any())).thenThrow(RuntimeException.class);
     assertThrows(NullPointerException.class, () -> sockMapper.toEntity(any()));
     assertThrows(RuntimeException.class, () -> sockRepository.save(any(Sock.class)));
     assertThatExceptionOfType(RuntimeException.class).isThrownBy(
-        () -> sockService.incomeSocks(sockDTO));
+        () -> sockService.add(sockDTO));
 
     verify(sockRepository, times(1)).save(any());
-    verify(sockService, times(1)).incomeSocks(any());
+    verify(sockService, times(1)).add(any());
     verify(sockMapper, times(1)).toEntity(any());
 
 

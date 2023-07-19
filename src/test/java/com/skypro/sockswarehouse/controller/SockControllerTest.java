@@ -61,7 +61,7 @@ class SockControllerTest {
     sockDTONotValidJSON.put("cottonPart", "-35");
     sockDTONotValidJSON.put("quantity", sockDTO.getQuantity());
 
-    when(sockService.incomeSocks(sockDTO)).thenReturn(sockDTO);
+    when(sockService.add(sockDTO)).thenReturn(sockDTO);
     when(sockRepository.save(sock)).thenReturn(sock);
     mockMvc.perform(post(url)
             .content(String.valueOf(sockDTOJSON))

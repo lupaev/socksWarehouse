@@ -3,7 +3,9 @@ package com.skypro.sockswarehouse.service;
 
 import com.querydsl.core.types.Predicate;
 import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.entity.Sock;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,7 +20,7 @@ public interface SockService {
    * @param sockDTO
    * @return
    */
-  SockDTO incomeSocks(SockDTO sockDTO);
+  SockDTO add(SockDTO sockDTO);
 
   /**
    * Отгрузка носков со склада
@@ -40,4 +42,10 @@ public interface SockService {
    * @return
    */
   Page<SockDTO> getAll(Predicate predicate, Pageable pageable);
+
+  List<Sock> findAll();
+
+  SockDTO findById(Long id);
+
+  void deleteById(Long id);
 }
