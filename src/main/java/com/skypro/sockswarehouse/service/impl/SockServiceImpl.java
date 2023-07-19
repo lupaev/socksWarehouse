@@ -79,7 +79,6 @@ public class SockServiceImpl implements SockService {
       log.info(FormLogInfo.getInfo());
       throw new QuantityNotEnoughException("Недостаточно товара на складе для отгрузки");
     }
-
   }
 
   @Override
