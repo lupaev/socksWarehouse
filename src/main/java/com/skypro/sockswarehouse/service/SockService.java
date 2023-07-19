@@ -2,6 +2,7 @@ package com.skypro.sockswarehouse.service;
 
 
 import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.entity.ComparisonOperation;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
 
 /**
@@ -32,5 +33,5 @@ public interface SockService {
      * @param operation
      * @return
      */
-    Integer getSocks(String color, Integer cottonPart, String operation);
+    Integer getSocks(String color, Integer cottonPart, ComparisonOperation operation);
 }

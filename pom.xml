@@ -5,18 +5,18 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.12</version>
+        <version>2.7.13</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.skypro</groupId>
-    <artifactId>socksWarehous</artifactId>
+    <artifactId>socksWarehouse</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>socksWarehous</name>
-    <description>socksWarehous</description>
+    <name>socksWarehouse</name>
+    <description>socksWarehouse</description>
     <properties>
         <java.version>11</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-        <start-class>com.skypro.sockswarehouse.SocksWarehousApplication</start-class>
+<!--        <start-class>com.skypro.sockswarehouse.SocksWarehouseApplication</start-class>-->
     </properties>
     <dependencies>
         <dependency>
@@ -75,7 +75,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.skypro.sockswarehouse.SocksWarehousApplication</mainClass>
+                    <mainClass>com.skypro.sockswarehouse.SocksWarehouseApplication</mainClass>
                     <layout>JAR</layout>
                 </configuration>
                 <executions>

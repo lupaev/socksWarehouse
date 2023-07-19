@@ -1,9 +1,11 @@
 package com.skypro.sockswarehouse.service.impl;
 
 import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.entity.ComparisonOperation;
 import com.skypro.sockswarehouse.entity.Sock;
 import com.skypro.sockswarehouse.exception.ElemNotFound;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
+import com.skypro.sockswarehouse.loger.FormLogInfo;
 import com.skypro.sockswarehouse.mapper.SockMapper;
 import com.skypro.sockswarehouse.repository.SockRepository;
 import com.skypro.sockswarehouse.service.SockService;
@@ -36,7 +38,7 @@ public class SockServiceImpl implements SockService {
      */
     @Override
     public SockDTO incomeSocks(SockDTO sockDTO) {
-        log.info("Приход партии носков на склад в количестве {} пар", sockDTO.getQuantity());
+        log.info(FormLogInfo.getInfo());
         sockRepository.save(sockMapper.toEntity(sockDTO));
         return sockDTO;
     }
@@ -51,7 +53,7 @@ public class SockServiceImpl implements SockService {
     @Override
     @Transactional
     public void outcomeSocks(String color, Integer cottonPart, Integer quantity) throws QuantityNotEnoughException {
-        log.info("Отгрузка партии носков со склада в количестве {} пар", quantity);
+        log.info(FormLogInfo.getInfo());
         Collection<Sock> socks = sockRepository.findByColorAndCottonPart(color, cottonPart); // Находим общее количество имеющееся на складе по заданым параметрам
         Integer quantityStock = socks.stream().mapToInt(Sock::getQuantity).sum();
         if (quantityStock > quantity) { //сравниваем количество в запросе на отгрузку и имеющееся на складе
@@ -65,8 +67,8 @@ public class SockServiceImpl implements SockService {
             sockRepository.save(sock); // сохраняем остатки после отгрузки
             log.info("Остаток на складе после отгрузки составляет {} пар", result);
         } else {
-            log.error("Недостаточно товара на складе для отгрузки");
-            throw new QuantityNotEnoughException();
+            log.info(FormLogInfo.getInfo());
+            throw new QuantityNotEnoughException("Недостаточно товара на складе для отгрузки");
         }
 
     }
@@ -79,22 +81,23 @@ public class SockServiceImpl implements SockService {
      * @return
      */
     @Override
-    public Integer getSocks(String color, Integer cottonPart, String operation) {
-        log.info("Выборка товара в соответствии с заданными параметрами");
+    public Integer getSocks(String color, Integer cottonPart, ComparisonOperation operation) {
+        log.info(FormLogInfo.getInfo());
         switch (operation) {
-            case "moreThan": {
+            case GREATERTHAN: {
                 Collection<Sock> socks = sockRepository.findByColorAndCottonPartGreaterThanEqual(color, cottonPart);
                 return socks.stream().mapToInt(Sock::getQuantity).sum();
             }
-            case "lessThan": {
+            case LESSTHEN: {
                 Collection<Sock> socks = sockRepository.findByColorAndCottonPartLessThanEqual(color, cottonPart);
                 return socks.stream().mapToInt(Sock::getQuantity).sum();
             }
-            case "equal": {
+            case EQUAL: {
                 Collection<Sock> socks = sockRepository.findByColorAndCottonPartEquals(color, cottonPart);
                 return socks.stream().mapToInt(Sock::getQuantity).sum();
             }
             default:
+                log.info(FormLogInfo.getInfo());
                 throw new ElemNotFound("Товара соответствуещего заданным параметрам нет на складе");
         }
 

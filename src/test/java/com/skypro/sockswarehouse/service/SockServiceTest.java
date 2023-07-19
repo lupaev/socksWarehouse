@@ -1,6 +1,7 @@
 package com.skypro.sockswarehouse.service;
 
 import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.entity.ComparisonOperation;
 import com.skypro.sockswarehouse.entity.Sock;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
 import com.skypro.sockswarehouse.mapper.SockMapper;
@@ -157,20 +158,20 @@ class SockServiceTest {
 
     when(sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
         sock.getCottonPart())).thenReturn(socks);
-    when(sockService.getSocks(sock.getColor(), sock.getCottonPart(), "moreThan")).thenReturn(
+    when(sockService.getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN)).thenReturn(
         sock.getQuantity());
 
     assertThat(sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
         sock.getCottonPart()))
         .isNotNull().isEqualTo(socks).isExactlyInstanceOf(ArrayList.class);
-    assertThat(sockService.getSocks(sock.getColor(), sock.getCottonPart(), "moreThan"))
+    assertThat(sockService.getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN))
         .isNotNull().isEqualTo(sock.getQuantity()).isExactlyInstanceOf(Integer.class);
     assertDoesNotThrow(
-        () -> sockService.getSocks(sock.getColor(), sock.getCottonPart(), "moreThan"));
+        () -> sockService.getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN));
 
     verify(sockRepository, times(1)).findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
         sock.getCottonPart());
-    verify(sockService, times(2)).getSocks(sock.getColor(), sock.getCottonPart(), "moreThan");
+    verify(sockService, times(2)).getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN);
 
   }
 
@@ -181,17 +182,17 @@ class SockServiceTest {
     doThrow(NullPointerException.class).when(sockRepository)
         .findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart());
     doThrow(NullPointerException.class).when(sockService)
-        .getSocks(sock.getColor(), sock.getCottonPart(), "moreThan");
+        .getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN);
 
     assertThrows(NullPointerException.class,
         () -> sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
             sock.getCottonPart()));
     assertThrows(NullPointerException.class,
-        () -> sockService.getSocks(sock.getColor(), sock.getCottonPart(), "moreThan"));
+        () -> sockService.getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN));
 
     verify(sockRepository, times(1)).findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
         sock.getCottonPart());
-    verify(sockService, times(1)).getSocks(sock.getColor(), sock.getCottonPart(), "moreThan");
+    verify(sockService, times(1)).getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN);
 
   }
 }

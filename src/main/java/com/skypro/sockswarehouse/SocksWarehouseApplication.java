@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SocksWarehousApplication {
+public class SocksWarehouseApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SocksWarehousApplication.class, args);
+        SpringApplication.run(SocksWarehouseApplication.class, args);
     }
 
 }
