@@ -103,7 +103,7 @@ class SockControllerTest {
         mockMvc.perform(get(url)
                         .param("color", sock.getColor())
                         .param("cotton", String.valueOf(sock.getCottonPart()))
-                        .param("operation", "moreThan")
+                        .param("comparisonOperation", "GREATERTHAN")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
