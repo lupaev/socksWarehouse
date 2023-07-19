@@ -2,9 +2,7 @@ package com.skypro.sockswarehouse.service.impl;
 
 import com.querydsl.core.types.Predicate;
 import com.skypro.sockswarehouse.dto.SockDTO;
-import com.skypro.sockswarehouse.entity.ComparisonOperation;
 import com.skypro.sockswarehouse.entity.Sock;
-import com.skypro.sockswarehouse.exception.ElemNotFound;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
 import com.skypro.sockswarehouse.loger.FormLogInfo;
 import com.skypro.sockswarehouse.mapper.SockMapper;

@@ -92,21 +92,21 @@ class SockControllerTest {
                 .andExpect(status().isOk());
 
     }
-    @Test
-    void getSocks() throws Exception {
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-        String url = "/socks";
-        Sock sock = new Sock(1L, "red", 20, 100);
-        Collection<Sock> socks = new ArrayList<Sock>(List.of(sock));
-        when(sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart()))
-                .thenReturn(socks);
-        mockMvc.perform(get(url)
-                        .param("color", sock.getColor())
-                        .param("cotton", String.valueOf(sock.getCottonPart()))
-                        .param("comparisonOperation", "GREATERTHAN")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    void getSocks() throws Exception {
+//        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+//        String url = "/socks";
+//        Sock sock = new Sock(1L, "red", 20, 100);
+//        Collection<Sock> socks = new ArrayList<Sock>(List.of(sock));
+//        when(sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart()))
+//                .thenReturn(socks);
+//        mockMvc.perform(get(url)
+//                        .param("color", sock.getColor())
+//                        .param("cotton", String.valueOf(sock.getCottonPart()))
+//                        .param("comparisonOperation", "GREATERTHAN")
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andDo(print())
+//                .andExpect(status().isOk());
+//    }
 }

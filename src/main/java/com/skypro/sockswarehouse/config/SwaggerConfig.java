@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @OpenAPIDefinition(
     info = @Info(
-        title = "Api для скклада",
+        title = "Api для скклада носков",
         description = "Socks Warehouse", version = "0.0.1",
         contact = @Contact(
             name = "Lupaev Sergej",

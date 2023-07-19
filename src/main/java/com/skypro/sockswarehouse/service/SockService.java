@@ -3,7 +3,6 @@ package com.skypro.sockswarehouse.service;
 
 import com.querydsl.core.types.Predicate;
 import com.skypro.sockswarehouse.dto.SockDTO;
-import com.skypro.sockswarehouse.entity.ComparisonOperation;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

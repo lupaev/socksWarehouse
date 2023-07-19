@@ -1,7 +1,8 @@
 package com.skypro.sockswarehouse.service;
 
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.Visitor;
 import com.skypro.sockswarehouse.dto.SockDTO;
-import com.skypro.sockswarehouse.entity.ComparisonOperation;
 import com.skypro.sockswarehouse.entity.Sock;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
 import com.skypro.sockswarehouse.mapper.SockMapper;
@@ -18,6 +19,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -152,47 +155,37 @@ class SockServiceTest {
   }
 
   @Test
-  void getSocksPositiveTest() {
+  void getAllPositiveTest() {
     SockServiceImpl sockService = mock(SockServiceImpl.class);
-    Collection<Sock> socks = new ArrayList<Sock>(List.of(sock));
+    List<Sock> socks = new ArrayList<>(List.of(sock));
+    Predicate predicate = null;
 
-    when(sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
-        sock.getCottonPart())).thenReturn(socks);
-    when(sockService.getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN)).thenReturn(
-        sock.getQuantity());
+    when(sockRepository.findAll()).thenReturn(socks);
+    assertThat(sockRepository.findAll()).isNotNull().isEqualTo(socks)
+        .isExactlyInstanceOf(ArrayList.class);
+    assertDoesNotThrow(() -> sockService.getAll(predicate, Pageable.unpaged()));
 
-    assertThat(sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
-        sock.getCottonPart()))
-        .isNotNull().isEqualTo(socks).isExactlyInstanceOf(ArrayList.class);
-    assertThat(sockService.getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN))
-        .isNotNull().isEqualTo(sock.getQuantity()).isExactlyInstanceOf(Integer.class);
-    assertDoesNotThrow(
-        () -> sockService.getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN));
-
-    verify(sockRepository, times(1)).findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
-        sock.getCottonPart());
-    verify(sockService, times(2)).getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN);
-
+    verify(sockRepository, times(1)).findAll();
+    verify(sockService, times(1)).getAll(predicate, Pageable.unpaged());
   }
 
   @Test
-  void getSocksNegativeTest() {
+  void getAllNegativeTest() {
     SockServiceImpl sockService = mock(SockServiceImpl.class);
+    Predicate predicate = null;
 
     doThrow(NullPointerException.class).when(sockRepository)
-        .findByColorAndCottonPartGreaterThanEqual(sock.getColor(), sock.getCottonPart());
+        .findAll();
     doThrow(NullPointerException.class).when(sockService)
-        .getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN);
+        .getAll(predicate, Pageable.unpaged());
 
     assertThrows(NullPointerException.class,
-        () -> sockRepository.findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
-            sock.getCottonPart()));
+        () -> sockRepository.findAll());
     assertThrows(NullPointerException.class,
-        () -> sockService.getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN));
+        () -> sockService.getAll(predicate, Pageable.unpaged()));
 
-    verify(sockRepository, times(1)).findByColorAndCottonPartGreaterThanEqual(sock.getColor(),
-        sock.getCottonPart());
-    verify(sockService, times(1)).getSocks(sock.getColor(), sock.getCottonPart(), ComparisonOperation.GREATERTHAN);
+    verify(sockRepository, times(1)).findAll();
+    verify(sockService, times(1)).getAll(predicate, Pageable.unpaged());
 
   }
 }

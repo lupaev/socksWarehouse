@@ -27,16 +27,9 @@ public interface SockRepository extends JpaRepository<Sock, Long>, QuerydslPredi
 
   void deleteAllByColorAndCottonPart(String color, Integer cottonPart);
 
-//  Collection<Sock> findByColorAndCottonPartGreaterThanEqual(String color, Integer cottonPart);
-
-//  Collection<Sock> findByColorAndCottonPartLessThanEqual(String color, Integer cottonPart);
-
-//  Collection<Sock> findByColorAndCottonPartEquals(String color, Integer cottonPart);
-
 
   @Override
   default void customize(QuerydslBindings bindings, QSock qSock) {
-
     bindings.bind(String.class)
         .first((SingleValueBinding<StringPath, String>) StringExpression::containsIgnoreCase);
     bindings.bind(qSock.id).all((path, value) -> {
