@@ -12,36 +12,32 @@ import org.springframework.data.domain.Pageable;
  */
 public interface SockService {
 
-    /**
-     * Поступление носков на склад
-     * @param sockDTO
-     * @return
-     */
-    SockDTO incomeSocks(SockDTO sockDTO);
+  /**
+   * Поступление носков на склад
+   *
+   * @param sockDTO
+   * @return
+   */
+  SockDTO incomeSocks(SockDTO sockDTO);
 
-    /**
-     * Отгрузка носков со склада
-     * @param color
-     * @param cottonPart
-     * @param quantity
-     * @throws QuantityNotEnoughException
-     */
-    void outcomeSocks(String color, Integer cottonPart, Integer quantity) throws QuantityNotEnoughException;
+  /**
+   * Отгрузка носков со склада
+   *
+   * @param color
+   * @param cottonPart
+   * @param quantity
+   * @throws QuantityNotEnoughException
+   */
+  void outcomeSocks(String color, Integer cottonPart, Integer quantity)
+      throws QuantityNotEnoughException;
 
-//    /**
-//     * Данные о количестве товара на складе
-//     * @param color
-//     * @param cottonPart
-//     * @param operation
-//     * @return
-//     */
-//    Integer getSocks(String color, Integer cottonPart, ComparisonOperation operation);
 
-    /**
-     * Данные о количестве товара на складе
-     * @param predicate
-     * @param pageable
-     * @return
-     */
-    Page<SockDTO> getAll(Predicate predicate, Pageable pageable);
+  /**
+   * Данные о количестве товара на складе
+   *
+   * @param predicate
+   * @param pageable
+   * @return
+   */
+  Page<SockDTO> getAll(Predicate predicate, Pageable pageable);
 }

@@ -110,39 +110,6 @@ public class SockController {
     return ResponseEntity.ok().build();
   }
 
-//  @Operation(summary = "Данные о количестве товара на складе")
-//  @ApiResponses({
-//      @ApiResponse(
-//          responseCode = "200",
-//          description = "OK"
-//      ),
-//      @ApiResponse(
-//          responseCode = "400",
-//          description = "bad request",
-//          content = @Content(schema = @Schema())
-//      ),
-//      @ApiResponse(
-//          responseCode = "500",
-//          description = "Internal Server Error",
-//          content = @Content(schema = @Schema())
-//      ),
-//  })
-//  @GetMapping
-//  public ResponseEntity<Integer> getAllSocks(@NotBlank(message = "Поле обязательное для заполнения")
-//  @Parameter(description = "Цвет носков", example = "red")
-//  @RequestParam(name = "color") String color,
-//      @NotBlank(message = "Поле обязательное для заполнения")
-//      @Min(value = 1, message = "Минимальное значение 1")
-//      @Max(value = 100, message = "Максимальное значение 100")
-//      @Parameter(description = "Процентное содержание хлопка")
-//      @RequestParam(name = "cotton") Integer cottonPart,
-//      @NotBlank(message = "Поле обязательное для заполнения")
-//      @Parameter(description = "Операция сравнения")
-//      @RequestParam(name = "comparisonOperation") ComparisonOperation comparisonOperation)
-//      throws QuantityNotEnoughException {
-//    return ResponseEntity.ok().body(sockService.getSocks(color, cottonPart, comparisonOperation));
-//  }
-
     @Operation(summary = "Данные о количестве товара на складе")
   @ApiResponses({
       @ApiResponse(
