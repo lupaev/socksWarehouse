@@ -1,4 +1,4 @@
-package com.skypro.sockswarehous;
+package com.skypro.sockswarehouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

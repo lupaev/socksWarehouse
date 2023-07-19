@@ -1,12 +1,12 @@
-package com.skypro.sockswarehous.service.impl;
+package com.skypro.sockswarehouse.service.impl;
 
-import com.skypro.sockswarehous.dto.SockDTO;
-import com.skypro.sockswarehous.entity.Sock;
-import com.skypro.sockswarehous.exception.ElemNotFound;
-import com.skypro.sockswarehous.exception.QuantityNotEnoughException;
-import com.skypro.sockswarehous.mapper.SockMapper;
-import com.skypro.sockswarehous.repository.SockRepository;
-import com.skypro.sockswarehous.service.SockService;
+import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.entity.Sock;
+import com.skypro.sockswarehouse.exception.ElemNotFound;
+import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
+import com.skypro.sockswarehouse.mapper.SockMapper;
+import com.skypro.sockswarehouse.repository.SockRepository;
+import com.skypro.sockswarehouse.service.SockService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;

@@ -1,11 +1,11 @@
-package com.skypro.sockswarehous.service;
+package com.skypro.sockswarehouse.service;
 
-import com.skypro.sockswarehous.dto.SockDTO;
-import com.skypro.sockswarehous.entity.Sock;
-import com.skypro.sockswarehous.exception.QuantityNotEnoughException;
-import com.skypro.sockswarehous.mapper.SockMapper;
-import com.skypro.sockswarehous.repository.SockRepository;
-import com.skypro.sockswarehous.service.impl.SockServiceImpl;
+import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.entity.Sock;
+import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
+import com.skypro.sockswarehouse.mapper.SockMapper;
+import com.skypro.sockswarehouse.repository.SockRepository;
+import com.skypro.sockswarehouse.service.impl.SockServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

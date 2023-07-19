@@ -1,8 +1,8 @@
-package com.skypro.sockswarehous.mapper;
+package com.skypro.sockswarehouse.mapper;
 
 
-import com.skypro.sockswarehous.dto.SockDTO;
-import com.skypro.sockswarehous.entity.Sock;
+import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.entity.Sock;
 import org.mapstruct.Mapper;
 
 /**

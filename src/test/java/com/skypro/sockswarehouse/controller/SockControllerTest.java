@@ -1,17 +1,15 @@
-package com.skypro.sockswarehous.controller;
+package com.skypro.sockswarehouse.controller;
 
-import com.skypro.sockswarehous.dto.SockDTO;
-import com.skypro.sockswarehous.entity.Sock;
-import com.skypro.sockswarehous.mapper.SockMapper;
-import com.skypro.sockswarehous.repository.SockRepository;
-import com.skypro.sockswarehous.service.SockService;
+import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.entity.Sock;
+import com.skypro.sockswarehouse.repository.SockRepository;
+import com.skypro.sockswarehouse.service.SockService;
 import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;

@@ -1,9 +1,7 @@
-package com.skypro.sockswarehous.mapper;
+package com.skypro.sockswarehouse.mapper;
 
-import com.skypro.sockswarehous.dto.SockDTO;
-import com.skypro.sockswarehous.entity.Sock;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
+import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.entity.Sock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

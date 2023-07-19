@@ -16,7 +16,7 @@
     <properties>
         <java.version>11</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-        <start-class>com.skypro.sockswarehous.SocksWarehousApplication</start-class>
+        <start-class>com.skypro.sockswarehouse.SocksWarehousApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -75,7 +75,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.skypro.sockswarehous.SocksWarehousApplication</mainClass>
+                    <mainClass>com.skypro.sockswarehouse.SocksWarehousApplication</mainClass>
                     <layout>JAR</layout>
                 </configuration>
                 <executions>

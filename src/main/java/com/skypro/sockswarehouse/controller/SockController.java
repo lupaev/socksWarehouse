@@ -1,8 +1,8 @@
-package com.skypro.sockswarehous.controller;
+package com.skypro.sockswarehouse.controller;
 
-import com.skypro.sockswarehous.dto.SockDTO;
-import com.skypro.sockswarehous.exception.QuantityNotEnoughException;
-import com.skypro.sockswarehous.service.SockService;
+import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
+import com.skypro.sockswarehouse.service.SockService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

@@ -1,8 +1,8 @@
-package com.skypro.sockswarehous.service;
+package com.skypro.sockswarehouse.service;
 
 
-import com.skypro.sockswarehous.dto.SockDTO;
-import com.skypro.sockswarehous.exception.QuantityNotEnoughException;
+import com.skypro.sockswarehouse.dto.SockDTO;
+import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
 
 /**
  * Сервис склада

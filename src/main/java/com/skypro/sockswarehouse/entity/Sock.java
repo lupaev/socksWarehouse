@@ -1,4 +1,4 @@
-package com.skypro.sockswarehous.entity;
+package com.skypro.sockswarehouse.entity;
 
 
 import lombok.*;

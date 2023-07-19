@@ -1,6 +1,6 @@
-package com.skypro.sockswarehous.repository;
+package com.skypro.sockswarehouse.repository;
 
-import com.skypro.sockswarehous.entity.Sock;
+import com.skypro.sockswarehouse.entity.Sock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

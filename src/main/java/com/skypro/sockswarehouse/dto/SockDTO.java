@@ -1,11 +1,10 @@
-package com.skypro.sockswarehous.dto;
+package com.skypro.sockswarehouse.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
