@@ -25,7 +25,6 @@ import javax.validation.constraints.NotNull;
 @Schema(description = "Сущность")
 public class SockDTO {
 
-    @JsonIgnore
     @Schema(description = "Идентификатор")
     Long id;
 

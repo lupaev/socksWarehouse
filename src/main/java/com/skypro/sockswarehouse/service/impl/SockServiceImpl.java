@@ -1,5 +1,6 @@
 package com.skypro.sockswarehouse.service.impl;
 
+import com.querydsl.core.types.Predicate;
 import com.skypro.sockswarehouse.dto.SockDTO;
 import com.skypro.sockswarehouse.entity.ComparisonOperation;
 import com.skypro.sockswarehouse.entity.Sock;
@@ -10,6 +11,8 @@ import com.skypro.sockswarehouse.mapper.SockMapper;
 import com.skypro.sockswarehouse.repository.SockRepository;
 import com.skypro.sockswarehouse.service.SockService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collection;
@@ -73,34 +76,40 @@ public class SockServiceImpl implements SockService {
 
     }
 
-    /**
-     * Данные о количестве товара на складе
-     * @param color
-     * @param cottonPart
-     * @param operation
-     * @return
-     */
-    @Override
-    public Integer getSocks(String color, Integer cottonPart, ComparisonOperation operation) {
-        log.info(FormLogInfo.getInfo());
-        switch (operation) {
-            case GREATERTHAN: {
-                Collection<Sock> socks = sockRepository.findByColorAndCottonPartGreaterThanEqual(color, cottonPart);
-                return socks.stream().mapToInt(Sock::getQuantity).sum();
-            }
-            case LESSTHEN: {
-                Collection<Sock> socks = sockRepository.findByColorAndCottonPartLessThanEqual(color, cottonPart);
-                return socks.stream().mapToInt(Sock::getQuantity).sum();
-            }
-            case EQUAL: {
-                Collection<Sock> socks = sockRepository.findByColorAndCottonPartEquals(color, cottonPart);
-                return socks.stream().mapToInt(Sock::getQuantity).sum();
-            }
-            default:
-                log.info(FormLogInfo.getInfo());
-                throw new ElemNotFound("Товара соответствуещего заданным параметрам нет на складе");
-        }
+//    /**
+//     * Данные о количестве товара на складе
+//     * @param color
+//     * @param cottonPart
+//     * @param operation
+//     * @return
+//     */
+//    @Override
+//    public Integer getSocks(String color, Integer cottonPart, ComparisonOperation operation) {
+//        log.info(FormLogInfo.getInfo());
+//        switch (operation) {
+//            case GREATERTHAN: {
+//                Collection<Sock> socks = sockRepository.findByColorAndCottonPartGreaterThanEqual(color, cottonPart);
+//                return socks.stream().mapToInt(Sock::getQuantity).sum();
+//            }
+//            case LESSTHEN: {
+//                Collection<Sock> socks = sockRepository.findByColorAndCottonPartLessThanEqual(color, cottonPart);
+//                return socks.stream().mapToInt(Sock::getQuantity).sum();
+//            }
+//            case EQUAL: {
+//                Collection<Sock> socks = sockRepository.findByColorAndCottonPartEquals(color, cottonPart);
+//                return socks.stream().mapToInt(Sock::getQuantity).sum();
+//            }
+//            default:
+//                log.info(FormLogInfo.getInfo());
+//                throw new ElemNotFound("Товара соответствуещего заданным параметрам нет на складе");
+//        }
+//
+//    }
 
-    }
+  @Override
+  public Page<SockDTO> getAll(Predicate predicate, Pageable pageable) {
+      Page<Sock> entities = sockRepository.findAll(predicate, pageable);
+      return entities.map(sockMapper::toDTO);
+  }
 
 }

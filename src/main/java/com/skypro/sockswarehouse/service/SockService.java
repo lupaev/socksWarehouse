@@ -1,9 +1,12 @@
 package com.skypro.sockswarehouse.service;
 
 
+import com.querydsl.core.types.Predicate;
 import com.skypro.sockswarehouse.dto.SockDTO;
 import com.skypro.sockswarehouse.entity.ComparisonOperation;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Сервис склада
@@ -26,12 +29,20 @@ public interface SockService {
      */
     void outcomeSocks(String color, Integer cottonPart, Integer quantity) throws QuantityNotEnoughException;
 
+//    /**
+//     * Данные о количестве товара на складе
+//     * @param color
+//     * @param cottonPart
+//     * @param operation
+//     * @return
+//     */
+//    Integer getSocks(String color, Integer cottonPart, ComparisonOperation operation);
+
     /**
      * Данные о количестве товара на складе
-     * @param color
-     * @param cottonPart
-     * @param operation
+     * @param predicate
+     * @param pageable
      * @return
      */
-    Integer getSocks(String color, Integer cottonPart, ComparisonOperation operation);
+    Page<SockDTO> getAll(Predicate predicate, Pageable pageable);
 }
