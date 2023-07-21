@@ -51,32 +51,31 @@ public class SockServiceImpl implements SockService {
   /**
    * Отгрузка носков со склада
    *
-   * @param color
-   * @param cottonPart
-   * @param quantity
+   * @param sockDTO
    * @throws QuantityNotEnoughException
    */
   @Override
   @Transactional
-  public void outcomeSocks(String color, Integer cottonPart, Integer quantity)
-      throws QuantityNotEnoughException {
+  public void outcomeSocks(SockDTO sockDTO) throws QuantityNotEnoughException {
     log.info(FormLogInfo.getInfo());
-    Collection<Sock> socks = sockRepository.findByColorAndCottonPart(color, cottonPart); // Находим общее количество имеющееся на складе по заданым параметрам
+    Collection<Sock> socks = sockRepository.findByColorAndCottonPart(sockDTO.getColor(),
+        sockDTO.getCottonPart()); // Находим общее количество имеющееся на складе по заданым параметрам
     Integer quantityStock = socks.stream().mapToInt(Sock::getQuantity).sum();
-    if (quantityStock > quantity) { //сравниваем количество в запросе на отгрузку и имеющееся на складе
-      log.info("В наличие на складе находится {} пар носков", quantity);
-      Integer result = quantityStock - quantity;
-      sockRepository.deleteAllByColorAndCottonPart(color, cottonPart);// удаляем партии со склада для отгрузки
+    if (quantityStock > sockDTO.getQuantity()) { //сравниваем количество в запросе на отгрузку и имеющееся на складе
+      log.info("В наличие на складе находится {} пар носков", quantityStock);
+      Integer result = quantityStock - sockDTO.getQuantity();
+      sockRepository.deleteAllByColorAndCottonPart(sockDTO.getColor(),
+          sockDTO.getCottonPart());// удаляем партии со склада для отгрузки
       Sock sock = new Sock();
-      sock.setColor(color);
+      sock.setColor(sockDTO.getColor());
       sock.setQuantity(result);
-      sock.setCottonPart(cottonPart);
+      sock.setCottonPart(sockDTO.getCottonPart());
       sockRepository.save(sock); // сохраняем остатки после отгрузки
       log.info("Остаток на складе после отгрузки составляет {} пар", result);
-    } else if (quantityStock.equals(quantity)) {
-      log.info("В наличие на складе находится {} пар носков", quantity);
-      Integer result = quantityStock - quantity;
-      sockRepository.deleteAllByColorAndCottonPart(color, cottonPart);
+    } else if (quantityStock.equals(sockDTO.getQuantity())) {
+      log.info("В наличие на складе находится {} пар носков", quantityStock);
+      Integer result = quantityStock - sockDTO.getQuantity();
+      sockRepository.deleteAllByColorAndCottonPart(sockDTO.getColor(), sockDTO.getCottonPart());
       log.info("Остаток на складе после отгрузки составляет {} пар", result);
     } else {
       log.info(FormLogInfo.getInfo());

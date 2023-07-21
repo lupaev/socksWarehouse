@@ -25,13 +25,10 @@ public interface SockService {
   /**
    * Отгрузка носков со склада
    *
-   * @param color
-   * @param cottonPart
-   * @param quantity
+   * @param sockDTO
    * @throws QuantityNotEnoughException
    */
-  void outcomeSocks(String color, Integer cottonPart, Integer quantity)
-      throws QuantityNotEnoughException;
+  void outcomeSocks(SockDTO sockDTO) throws QuantityNotEnoughException;
 
 
   /**

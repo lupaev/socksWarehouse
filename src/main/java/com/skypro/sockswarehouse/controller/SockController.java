@@ -1,38 +1,16 @@
 package com.skypro.sockswarehouse.controller;
 
-import com.querydsl.core.types.Predicate;
 import com.skypro.sockswarehouse.dto.SockDTO;
-import com.skypro.sockswarehouse.entity.Sock;
-import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
-import com.skypro.sockswarehouse.repository.SockRepository;
 import com.skypro.sockswarehouse.service.SockService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -149,7 +127,7 @@ public class SockController {
   @GetMapping(value = "/add")
   public String showAddForm(Model model, SockDTO sockDTO) {
     model.addAttribute("sockDTO", sockDTO);
-    return "sock-form";
+    return "sock-add_form";
   }
 
   @PostMapping(value = "/add")
@@ -171,8 +149,15 @@ public class SockController {
     return "redirect:/socks";
   }
 
-  @GetMapping(value = "/socks/sale")
-  public String saleSocks() {
+  @GetMapping(value = "/sale")
+  public String showFormDelete(Model model, SockDTO sockDTO) {
+    model.addAttribute("sockDTO", sockDTO);
+    return "sock-del_form";
+  }
+
+  @PostMapping(value = "/sale")
+  public String saleSocks(@ModelAttribute(value = "sockDTO") SockDTO sockDTO) {
+    sockService.outcomeSocks(sockDTO);
     return "redirect:/socks";
   }
 

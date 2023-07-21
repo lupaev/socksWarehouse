@@ -11,12 +11,6 @@ public class MainController {
     return "index";
   }
 
-//  @GetMapping
-//  public String showFacultyList(Model model) {
-//    FacultyDTO facultyDTO = new FacultyDTO();
-//    model.addAttribute("faculties", service.getAll());
-//    model.addAttribute("facultyDTO", facultyDTO);
-//    return "faculties";
-//  }
+
 
 }

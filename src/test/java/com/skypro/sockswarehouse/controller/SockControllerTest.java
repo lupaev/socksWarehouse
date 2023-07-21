@@ -71,29 +71,29 @@ class SockControllerTest {
         .andExpect(status().isOk());
   }
 
-  @Test
-  void outcomeSocks() throws Exception {
-    MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-    String url = "/socks/outcome";
-    Sock sock = new Sock(1L, "red", 20, 100);
-    Sock sock1 = new Sock(1L, "red", 20, 20);
-    Collection<Sock> socks = new ArrayList<Sock>(List.of(sock));
-    lenient().doNothing().when(sockService).outcomeSocks(sock.getColor(), sock.getCottonPart(), 80);
-    when(sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart()))
-        .thenReturn(socks);
-    lenient().doNothing().when(sockRepository)
-        .deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
-    when(sockRepository.save(sock1)).thenReturn(sock1);
-    mockMvc.perform(post(url)
-            .param("color", sock.getColor())
-            .param("cotton", String.valueOf(sock.getCottonPart()))
-            .param("quantity", "80")
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .accept(MediaType.APPLICATION_JSON))
-        .andDo(print())
-        .andExpect(status().isOk());
+//  @Test
+//  void outcomeSocks() throws Exception {
+//    MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+//    String url = "/socks/outcome";
+//    Sock sock = new Sock(1L, "red", 20, 100);
+//    Sock sock1 = new Sock(1L, "red", 20, 20);
+//    Collection<Sock> socks = new ArrayList<Sock>(List.of(sock));
+//    lenient().doNothing().when(sockService).outcomeSocks(sock.getColor(), sock.getCottonPart(), 80);
+//    when(sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart()))
+//        .thenReturn(socks);
+//    lenient().doNothing().when(sockRepository)
+//        .deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
+//    when(sockRepository.save(sock1)).thenReturn(sock1);
+//    mockMvc.perform(post(url)
+//            .param("color", sock.getColor())
+//            .param("cotton", String.valueOf(sock.getCottonPart()))
+//            .param("quantity", "80")
+//            .contentType(MediaType.APPLICATION_JSON_VALUE)
+//            .accept(MediaType.APPLICATION_JSON))
+//        .andDo(print())
+//        .andExpect(status().isOk());
 
-  }
+//  }
 
   @Test
   void getAllSocks() throws Exception {

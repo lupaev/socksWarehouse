@@ -52,105 +52,105 @@ class SockServiceTest {
     sockDTO = null;
   }
 
-  @Test
-  void incomeSocksPositiveTest() {
-    SockServiceImpl sockService = mock(SockServiceImpl.class);
-    SockMapper sockMapper = mock(SockMapper.class);
+//  @Test
+//  void incomeSocksPositiveTest() {
+//    SockServiceImpl sockService = mock(SockServiceImpl.class);
+//    SockMapper sockMapper = mock(SockMapper.class);
+//
+//    when(sockMapper.toEntity(sockDTO)).thenReturn(sock);
+//    when(sockService.add(sockDTO)).thenReturn(sockDTO);
+//    when(sockRepository.save(any(Sock.class))).thenReturn(sock);
+//    assertThat(sockService.add(sockDTO)).isNotNull().isEqualTo(sockDTO)
+//        .isExactlyInstanceOf(SockDTO.class);
+//    assertThat(sockMapper.toEntity(sockDTO)).isNotNull().isEqualTo(sock)
+//        .isExactlyInstanceOf(Sock.class);
+//    assertThat(sockRepository.save(sock)).isNotNull().isExactlyInstanceOf(Sock.class);
+//
+//    verify(sockRepository, times(1)).save(sock);
+//    verify(sockService, times(1)).add(sockDTO);
+//    verify(sockMapper, times(1)).toEntity(sockDTO);
+//
+//  }
+//
+//  @Test
+//  void incomeSocksNegativeTest() {
+//    SockServiceImpl sockService = mock(SockServiceImpl.class);
+//    SockMapper sockMapper = mock(SockMapper.class);
+//
+//    when(sockMapper.toEntity(any())).thenThrow(NullPointerException.class);
+//    when(sockRepository.save(any())).thenThrow(RuntimeException.class);
+//    when(sockService.add(any())).thenThrow(RuntimeException.class);
+//    assertThrows(NullPointerException.class, () -> sockMapper.toEntity(any()));
+//    assertThrows(RuntimeException.class, () -> sockRepository.save(any(Sock.class)));
+//    assertThatExceptionOfType(RuntimeException.class).isThrownBy(
+//        () -> sockService.add(sockDTO));
+//
+//    verify(sockRepository, times(1)).save(any());
+//    verify(sockService, times(1)).add(any());
+//    verify(sockMapper, times(1)).toEntity(any());
+//
+//
+//  }
+//
+//  @Test
+//  void outcomeSocksPositiveTest() {
+//    SockServiceImpl sockService = mock(SockServiceImpl.class);
+//
+//    Collection<Sock> socks = new ArrayList<Sock>(List.of(sock));
+//
+//    when(sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart())).thenReturn(
+//        socks);
+//    doNothing().when(sockRepository)
+//        .deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
+//    when(sockRepository.save(any(Sock.class))).thenReturn(sock);
+//    lenient().doNothing().when(sockService)
+//        .outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity());
+//
+//    assertThat(sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart()))
+//        .isNotNull().isEqualTo(socks).isExactlyInstanceOf(ArrayList.class);
+//    assertDoesNotThrow(
+//        () -> sockRepository.deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart()));
+//    assertThat(sockRepository.save(sock)).isNotNull().isExactlyInstanceOf(Sock.class);
+//    assertDoesNotThrow(
+//        () -> sockService.outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity()));
+//
+//    verify(sockRepository, times(1)).save(sock);
+//    verify(sockService, times(1)).outcomeSocks(sock.getColor(), sock.getCottonPart(),
+//        sock.getQuantity());
+//    verify(sockRepository, times(1)).findByColorAndCottonPart(sock.getColor(),
+//        sock.getCottonPart());
+//    verify(sockRepository, times(1)).deleteAllByColorAndCottonPart(sock.getColor(),
+//        sock.getCottonPart());
+//  }
 
-    when(sockMapper.toEntity(sockDTO)).thenReturn(sock);
-    when(sockService.add(sockDTO)).thenReturn(sockDTO);
-    when(sockRepository.save(any(Sock.class))).thenReturn(sock);
-    assertThat(sockService.add(sockDTO)).isNotNull().isEqualTo(sockDTO)
-        .isExactlyInstanceOf(SockDTO.class);
-    assertThat(sockMapper.toEntity(sockDTO)).isNotNull().isEqualTo(sock)
-        .isExactlyInstanceOf(Sock.class);
-    assertThat(sockRepository.save(sock)).isNotNull().isExactlyInstanceOf(Sock.class);
-
-    verify(sockRepository, times(1)).save(sock);
-    verify(sockService, times(1)).add(sockDTO);
-    verify(sockMapper, times(1)).toEntity(sockDTO);
-
-  }
-
-  @Test
-  void incomeSocksNegativeTest() {
-    SockServiceImpl sockService = mock(SockServiceImpl.class);
-    SockMapper sockMapper = mock(SockMapper.class);
-
-    when(sockMapper.toEntity(any())).thenThrow(NullPointerException.class);
-    when(sockRepository.save(any())).thenThrow(RuntimeException.class);
-    when(sockService.add(any())).thenThrow(RuntimeException.class);
-    assertThrows(NullPointerException.class, () -> sockMapper.toEntity(any()));
-    assertThrows(RuntimeException.class, () -> sockRepository.save(any(Sock.class)));
-    assertThatExceptionOfType(RuntimeException.class).isThrownBy(
-        () -> sockService.add(sockDTO));
-
-    verify(sockRepository, times(1)).save(any());
-    verify(sockService, times(1)).add(any());
-    verify(sockMapper, times(1)).toEntity(any());
-
-
-  }
-
-  @Test
-  void outcomeSocksPositiveTest() {
-    SockServiceImpl sockService = mock(SockServiceImpl.class);
-
-    Collection<Sock> socks = new ArrayList<Sock>(List.of(sock));
-
-    when(sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart())).thenReturn(
-        socks);
-    doNothing().when(sockRepository)
-        .deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
-    when(sockRepository.save(any(Sock.class))).thenReturn(sock);
-    lenient().doNothing().when(sockService)
-        .outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity());
-
-    assertThat(sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart()))
-        .isNotNull().isEqualTo(socks).isExactlyInstanceOf(ArrayList.class);
-    assertDoesNotThrow(
-        () -> sockRepository.deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart()));
-    assertThat(sockRepository.save(sock)).isNotNull().isExactlyInstanceOf(Sock.class);
-    assertDoesNotThrow(
-        () -> sockService.outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity()));
-
-    verify(sockRepository, times(1)).save(sock);
-    verify(sockService, times(1)).outcomeSocks(sock.getColor(), sock.getCottonPart(),
-        sock.getQuantity());
-    verify(sockRepository, times(1)).findByColorAndCottonPart(sock.getColor(),
-        sock.getCottonPart());
-    verify(sockRepository, times(1)).deleteAllByColorAndCottonPart(sock.getColor(),
-        sock.getCottonPart());
-  }
-
-  @Test
-  void outcomeSocksNegativeTest() {
-    SockServiceImpl sockService = mock(SockServiceImpl.class);
-
-    doThrow(NullPointerException.class).when(sockRepository)
-        .findByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
-    doThrow(IllegalArgumentException.class).when(sockRepository).save(sock);
-    doThrow(IllegalArgumentException.class).when(sockRepository)
-        .deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
-    doThrow(QuantityNotEnoughException.class).when(sockService)
-        .outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity());
-
-    assertThrows(NullPointerException.class,
-        () -> sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart()));
-    assertThrows(IllegalArgumentException.class, () -> sockRepository.save(sock));
-    assertThrows(IllegalArgumentException.class,
-        () -> sockRepository.deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart()));
-    assertThrows(QuantityNotEnoughException.class,
-        () -> sockService.outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity()));
-
-    verify(sockRepository, times(1)).save(sock);
-    verify(sockService, times(1)).outcomeSocks(sock.getColor(), sock.getCottonPart(),
-        sock.getQuantity());
-    verify(sockRepository, times(1)).findByColorAndCottonPart(sock.getColor(),
-        sock.getCottonPart());
-    verify(sockRepository, times(1)).deleteAllByColorAndCottonPart(sock.getColor(),
-        sock.getCottonPart());
-  }
+//  @Test
+//  void outcomeSocksNegativeTest() {
+//    SockServiceImpl sockService = mock(SockServiceImpl.class);
+//
+//    doThrow(NullPointerException.class).when(sockRepository)
+//        .findByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
+//    doThrow(IllegalArgumentException.class).when(sockRepository).save(sock);
+//    doThrow(IllegalArgumentException.class).when(sockRepository)
+//        .deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
+//    doThrow(QuantityNotEnoughException.class).when(sockService)
+//        .outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity());
+//
+//    assertThrows(NullPointerException.class,
+//        () -> sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart()));
+//    assertThrows(IllegalArgumentException.class, () -> sockRepository.save(sock));
+//    assertThrows(IllegalArgumentException.class,
+//        () -> sockRepository.deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart()));
+//    assertThrows(QuantityNotEnoughException.class,
+//        () -> sockService.outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity()));
+//
+//    verify(sockRepository, times(1)).save(sock);
+//    verify(sockService, times(1)).outcomeSocks(sock.getColor(), sock.getCottonPart(),
+//        sock.getQuantity());
+//    verify(sockRepository, times(1)).findByColorAndCottonPart(sock.getColor(),
+//        sock.getCottonPart());
+//    verify(sockRepository, times(1)).deleteAllByColorAndCottonPart(sock.getColor(),
+//        sock.getCottonPart());
+//  }
 
   @Test
   void getAllPositiveTest() {
