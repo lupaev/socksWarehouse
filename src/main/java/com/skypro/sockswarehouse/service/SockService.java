@@ -45,4 +45,8 @@ public interface SockService {
   SockDTO findById(Long id);
 
   void deleteById(Long id);
+
+  void updateById(SockDTO sockDTO);
+
+  SockDTO updateById(SockDTO sockDTO, Long id);
 }

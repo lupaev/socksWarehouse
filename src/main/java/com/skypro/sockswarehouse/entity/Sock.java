@@ -1,6 +1,9 @@
 package com.skypro.sockswarehouse.entity;
 
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
@@ -23,15 +26,27 @@ public class Sock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @NotBlank
+    @NotNull
+    @NotEmpty
     Long id;
 
     @Column(name = "color")
+    @NotBlank
+    @NotNull
+    @NotEmpty
     String color;
 
     @Column(name = "cotton_part")
+    @NotBlank
+    @NotNull
+    @NotEmpty
     Integer cottonPart;
 
     @Column(name = "quantity")
+    @NotBlank
+    @NotNull
+    @NotEmpty
     Integer quantity;
 
 }

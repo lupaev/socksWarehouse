@@ -46,4 +46,19 @@ class SockMapperTest {
 
     }
 
+  @Test
+  void updateEntity() {
+      assertNotNull(sock);
+      SockDTO dto = new SockDTO();
+//      dto.setColor("black");
+      dto.setQuantity(1111);
+      sockMapper.updateEntity(dto, sock);
+      assertEquals(sock.getColor(), "red");
+      assertEquals(sock.getCottonPart(), 20);
+      assertEquals(sock.getQuantity(), 1111);
+      sockDTO.setQuantity(1111);
+      assertEquals(sockMapper.toDTO(sock), sockDTO);
+
+
+  }
 }

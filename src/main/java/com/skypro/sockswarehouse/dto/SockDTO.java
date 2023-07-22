@@ -3,6 +3,7 @@ package com.skypro.sockswarehouse.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
+import javax.validation.constraints.NotEmpty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -25,21 +26,28 @@ import javax.validation.constraints.NotNull;
 @Schema(description = "Сущность")
 public class SockDTO {
 
-    @Schema(description = "Идентификатор")
-    Long id;
+  @Schema(description = "Идентификатор")
+  Long id;
 
-    @NotNull
-    @NotBlank
-    @Schema(description = "Цвет")
-    String color;
+  @Schema(description = "Цвет")
+  @NotBlank
+  @NotNull
+  @NotEmpty
+  String color;
 
-    @Min(value = 1, message = "Минимальное значение 1")
-    @Max(value = 100, message = "Максимальное значение 100")
-    @Schema(description = "Процентное содержание хлопка")
-    Integer cottonPart;
+  @Min(value = 1, message = "Минимальное значение 1")
+  @Max(value = 100, message = "Максимальное значение 100")
+  @Schema(description = "Процентное содержание хлопка")
+  @NotBlank
+  @NotNull
+  @NotEmpty
+  Integer cottonPart;
 
-    @Min(value = 1, message = "Минимальное значение 1")
-    @Schema(description = "Количество")
-    Integer quantity;
+  @Min(value = 1, message = "Минимальное значение 1")
+  @Schema(description = "Количество")
+  @NotBlank
+  @NotNull
+  @NotEmpty
+  Integer quantity;
 
 }

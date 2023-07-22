@@ -61,7 +61,8 @@ public class SockServiceImpl implements SockService {
     Collection<Sock> socks = sockRepository.findByColorAndCottonPart(sockDTO.getColor(),
         sockDTO.getCottonPart()); // Находим общее количество имеющееся на складе по заданым параметрам
     Integer quantityStock = socks.stream().mapToInt(Sock::getQuantity).sum();
-    if (quantityStock > sockDTO.getQuantity()) { //сравниваем количество в запросе на отгрузку и имеющееся на складе
+    if (quantityStock
+        > sockDTO.getQuantity()) { //сравниваем количество в запросе на отгрузку и имеющееся на складе
       log.info("В наличие на складе находится {} пар носков", quantityStock);
       Integer result = quantityStock - sockDTO.getQuantity();
       sockRepository.deleteAllByColorAndCottonPart(sockDTO.getColor(),
@@ -101,7 +102,27 @@ public class SockServiceImpl implements SockService {
 
   @Override
   public void deleteById(Long id) {
+    log.info(FormLogInfo.getInfo());
     sockRepository.deleteById(id);
+  }
+
+  @Override
+  public void updateById(SockDTO sockDTO) {
+    log.info(FormLogInfo.getInfo());
+    Sock sock = sockRepository.findById(sockDTO.getId())
+        .orElseThrow(() -> new ElemNotFound("партия не найдена"));
+    sockMapper.updateEntity(sockDTO, sock);
+    sockRepository.save(sock);
+  }
+
+  @Override
+  public SockDTO updateById(SockDTO sockDTO, Long id) {
+    log.info(FormLogInfo.getInfo());
+    Sock sock = sockRepository.findById(id)
+        .orElseThrow(() -> new ElemNotFound("партия не найдена"));
+    sockMapper.updateEntity(sockDTO, sock);
+    sockRepository.save(sock);
+    return sockMapper.toDTO(sock);
   }
 
 }
