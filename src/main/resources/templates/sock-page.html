@@ -18,6 +18,7 @@
             <th>Цвет</th>
             <th>% содержания хлопка</th>
             <th>Кол-во</th>
+            <th>действия</th>
         </tr>
         </thead>
         <tbody>
@@ -28,10 +29,11 @@
             <td th:text="${sockDTO.quantity}"/>
             <td>
                 <a th:href="@{'/socks/del/' + ${sockDTO.id}}" th:text="Удалить"/>
-            </td>
-            <td>
                 <a th:href="@{'/socks/upd/' + ${sockDTO.id}}" th:text="Изменить"/>
             </td>
+<!--            <td>-->
+<!--                <a th:href="@{'/socks/upd/' + ${sockDTO.id}}" th:text="Изменить"/>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>
