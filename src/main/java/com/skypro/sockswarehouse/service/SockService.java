@@ -1,13 +1,9 @@
 package com.skypro.sockswarehouse.service;
 
 
-import com.querydsl.core.types.Predicate;
 import com.skypro.sockswarehouse.dto.SockDTO;
-import com.skypro.sockswarehouse.entity.Sock;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
 import java.util.List;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * Сервис склада
@@ -30,17 +26,7 @@ public interface SockService {
    */
   void outcomeSocks(SockDTO sockDTO) throws QuantityNotEnoughException;
 
-
-  /**
-   * Данные о количестве товара на складе
-   *
-   * @param predicate
-   * @param pageable
-   * @return
-   */
-  Page<SockDTO> getAll(Predicate predicate, Pageable pageable);
-
-  List<Sock> findAll();
+  List<SockDTO> findAllByKeyWord(String word);
 
   SockDTO findById(Long id);
 
@@ -48,5 +34,5 @@ public interface SockService {
 
   void updateById(SockDTO sockDTO);
 
-  SockDTO updateById(SockDTO sockDTO, Long id);
+
 }

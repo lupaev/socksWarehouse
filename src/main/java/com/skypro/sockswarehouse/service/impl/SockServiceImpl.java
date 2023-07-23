@@ -1,6 +1,5 @@
 package com.skypro.sockswarehouse.service.impl;
 
-import com.querydsl.core.types.Predicate;
 import com.skypro.sockswarehouse.dto.SockDTO;
 import com.skypro.sockswarehouse.entity.Sock;
 import com.skypro.sockswarehouse.exception.ElemNotFound;
@@ -9,14 +8,11 @@ import com.skypro.sockswarehouse.loger.FormLogInfo;
 import com.skypro.sockswarehouse.mapper.SockMapper;
 import com.skypro.sockswarehouse.repository.SockRepository;
 import com.skypro.sockswarehouse.service.SockService;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
+import javax.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
  * Сервис склада
@@ -85,14 +81,11 @@ public class SockServiceImpl implements SockService {
   }
 
   @Override
-  public Page<SockDTO> getAll(Predicate predicate, Pageable pageable) {
-    Page<Sock> entities = sockRepository.findAll(predicate, pageable);
-    return entities.map(sockMapper::toDTO);
-  }
-
-  @Override
-  public List<Sock> findAll() {
-    return new ArrayList<>(sockRepository.findAll());
+  public List<SockDTO> findAllByKeyWord(String word) {
+    if (word == null) {
+      return sockMapper.toDTOList(sockRepository.findAll());
+    }
+    return sockMapper.toDTOList(sockRepository.findSocksByColor(word));
   }
 
   @Override
@@ -113,16 +106,6 @@ public class SockServiceImpl implements SockService {
         .orElseThrow(() -> new ElemNotFound("партия не найдена"));
     sockMapper.updateEntity(sockDTO, sock);
     sockRepository.save(sock);
-  }
-
-  @Override
-  public SockDTO updateById(SockDTO sockDTO, Long id) {
-    log.info(FormLogInfo.getInfo());
-    Sock sock = sockRepository.findById(id)
-        .orElseThrow(() -> new ElemNotFound("партия не найдена"));
-    sockMapper.updateEntity(sockDTO, sock);
-    sockRepository.save(sock);
-    return sockMapper.toDTO(sock);
   }
 
 }
