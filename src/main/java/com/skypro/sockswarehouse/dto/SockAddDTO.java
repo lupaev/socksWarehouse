@@ -22,10 +22,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Schema(description = "DTO товара")
-public class SockDTO {
-
-    @Schema(description = "Идентификатор")
-    Long id;
+public class SockAddDTO {
 
     @NotNull @NotBlank
     @Schema(description = "Цвет")

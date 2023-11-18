@@ -8,8 +8,5 @@ public class QuantityNotEnoughException extends RuntimeException {
     public QuantityNotEnoughException() {
     }
 
-    public QuantityNotEnoughException(String textException) {
-    }
-
 
 }

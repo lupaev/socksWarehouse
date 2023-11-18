@@ -4,17 +4,14 @@ import com.skypro.sockswarehouse.dto.SockDTO;
 import com.skypro.sockswarehouse.entity.Sock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest
+
 class SockMapperTest {
 
-    @Autowired
-    private SockMapper sockMapper;
-
+    private SockMapper sockMapper = new SockMapperImpl();
     private SockDTO sockDTO;
     private Sock sock;
 
@@ -42,8 +39,5 @@ class SockMapperTest {
         assertEquals(sockDTO.getCottonPart(), sockDTO1.getCottonPart());
         assertEquals(sock.getQuantity(), sock1.getQuantity());
         assertEquals(sockDTO.getQuantity(), sockDTO1.getQuantity());
-
-
     }
-
 }

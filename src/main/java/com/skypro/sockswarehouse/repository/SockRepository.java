@@ -4,8 +4,6 @@ import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
 import com.skypro.sockswarehouse.entity.QSock;
 import com.skypro.sockswarehouse.entity.Sock;
-import java.util.Iterator;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -14,10 +12,12 @@ import org.springframework.data.querydsl.binding.SingleValueBinding;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.Optional;
 
 
 /**
- * репозиторий для носков
+ * Репозиторий для носков
  */
 @Repository
 public interface SockRepository extends JpaRepository<Sock, Long>, QuerydslPredicateExecutor<Sock>,

@@ -1,7 +1,7 @@
 package com.skypro.sockswarehouse.service;
 
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Visitor;
+import com.skypro.sockswarehouse.dto.SockAddDTO;
 import com.skypro.sockswarehouse.dto.SockDTO;
 import com.skypro.sockswarehouse.entity.Sock;
 import com.skypro.sockswarehouse.exception.QuantityNotEnoughException;
@@ -16,13 +16,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Pageable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -36,16 +37,16 @@ class SockServiceTest {
   private SockRepository sockRepository;
   @Spy
   private SockMapper sockMapper;
-
   private SockDTO sockDTO;
+  private SockAddDTO sockAddDTO;
   private Sock sock;
 
 
   @BeforeEach
   void setUp() {
     sockDTO = new SockDTO(1L, "red", 20, 100);
+    sockAddDTO = new SockAddDTO("red", 20, 100);
     sock = new Sock(1L, "red", 20, 100);
-
   }
 
   @AfterEach
@@ -60,18 +61,17 @@ class SockServiceTest {
     SockMapper sockMapper = mock(SockMapper.class);
 
     when(sockMapper.toEntity(sockDTO)).thenReturn(sock);
-    when(sockService.incomeSocks(sockDTO)).thenReturn(sockDTO);
-    when(sockRepository.save(any(Sock.class))).thenReturn(sock);
-    assertThat(sockService.incomeSocks(sockDTO)).isNotNull().isEqualTo(sockDTO)
+    when(sockService.addSocks(sockAddDTO)).thenReturn(sockDTO);
+    when(sockRepository.save(sock)).thenReturn(sock);
+    assertThat(sockService.addSocks(sockAddDTO)).isNotNull().isEqualTo(sockDTO)
         .isExactlyInstanceOf(SockDTO.class);
     assertThat(sockMapper.toEntity(sockDTO)).isNotNull().isEqualTo(sock)
         .isExactlyInstanceOf(Sock.class);
     assertThat(sockRepository.save(sock)).isNotNull().isExactlyInstanceOf(Sock.class);
 
     verify(sockRepository, times(1)).save(sock);
-    verify(sockService, times(1)).incomeSocks(sockDTO);
+    verify(sockService, times(1)).addSocks(sockAddDTO);
     verify(sockMapper, times(1)).toEntity(sockDTO);
-
   }
 
   @Test
@@ -79,19 +79,17 @@ class SockServiceTest {
     SockServiceImpl sockService = mock(SockServiceImpl.class);
     SockMapper sockMapper = mock(SockMapper.class);
 
-    when(sockMapper.toEntity(any())).thenThrow(NullPointerException.class);
-    when(sockRepository.save(any())).thenThrow(RuntimeException.class);
-    when(sockService.incomeSocks(any())).thenThrow(RuntimeException.class);
-    assertThrows(NullPointerException.class, () -> sockMapper.toEntity(any()));
-    assertThrows(RuntimeException.class, () -> sockRepository.save(any(Sock.class)));
+    when(sockMapper.toEntity(sockAddDTO)).thenThrow(NullPointerException.class);
+    when(sockRepository.save(sock)).thenThrow(RuntimeException.class);
+    when(sockService.addSocks(sockAddDTO)).thenThrow(RuntimeException.class);
+    assertThrows(NullPointerException.class, () -> sockMapper.toEntity(sockAddDTO));
+    assertThrows(RuntimeException.class, () -> sockRepository.save(sock));
     assertThatExceptionOfType(RuntimeException.class).isThrownBy(
-        () -> sockService.incomeSocks(sockDTO));
+        () -> sockService.addSocks(sockAddDTO));
 
-    verify(sockRepository, times(1)).save(any());
-    verify(sockService, times(1)).incomeSocks(any());
-    verify(sockMapper, times(1)).toEntity(any());
-
-
+    verify(sockRepository, times(1)).save(sock);
+    verify(sockService, times(1)).addSocks(sockAddDTO);
+    verify(sockMapper, times(1)).toEntity(sockAddDTO);
   }
 
   @Test
@@ -106,7 +104,7 @@ class SockServiceTest {
         .deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
     when(sockRepository.save(any(Sock.class))).thenReturn(sock);
     lenient().doNothing().when(sockService)
-        .outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity());
+        .out(sockAddDTO);
 
     assertThat(sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart()))
         .isNotNull().isEqualTo(socks).isExactlyInstanceOf(ArrayList.class);
@@ -114,11 +112,10 @@ class SockServiceTest {
         () -> sockRepository.deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart()));
     assertThat(sockRepository.save(sock)).isNotNull().isExactlyInstanceOf(Sock.class);
     assertDoesNotThrow(
-        () -> sockService.outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity()));
+        () -> sockService.out(sockAddDTO));
 
     verify(sockRepository, times(1)).save(sock);
-    verify(sockService, times(1)).outcomeSocks(sock.getColor(), sock.getCottonPart(),
-        sock.getQuantity());
+    verify(sockService, times(1)).out(sockAddDTO);
     verify(sockRepository, times(1)).findByColorAndCottonPart(sock.getColor(),
         sock.getCottonPart());
     verify(sockRepository, times(1)).deleteAllByColorAndCottonPart(sock.getColor(),
@@ -135,7 +132,7 @@ class SockServiceTest {
     doThrow(IllegalArgumentException.class).when(sockRepository)
         .deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart());
     doThrow(QuantityNotEnoughException.class).when(sockService)
-        .outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity());
+        .out(sockAddDTO);
 
     assertThrows(NullPointerException.class,
         () -> sockRepository.findByColorAndCottonPart(sock.getColor(), sock.getCottonPart()));
@@ -143,11 +140,10 @@ class SockServiceTest {
     assertThrows(IllegalArgumentException.class,
         () -> sockRepository.deleteAllByColorAndCottonPart(sock.getColor(), sock.getCottonPart()));
     assertThrows(QuantityNotEnoughException.class,
-        () -> sockService.outcomeSocks(sock.getColor(), sock.getCottonPart(), sock.getQuantity()));
+        () -> sockService.out(sockAddDTO));
 
     verify(sockRepository, times(1)).save(sock);
-    verify(sockService, times(1)).outcomeSocks(sock.getColor(), sock.getCottonPart(),
-        sock.getQuantity());
+    verify(sockService, times(1)).out(sockAddDTO);
     verify(sockRepository, times(1)).findByColorAndCottonPart(sock.getColor(),
         sock.getCottonPart());
     verify(sockRepository, times(1)).deleteAllByColorAndCottonPart(sock.getColor(),

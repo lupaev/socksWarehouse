@@ -18,8 +18,6 @@
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <org.projectlombok.version>1.18.28</org.projectlombok.version>
         <querydsl.version>5.0.0</querydsl.version>
-
-        <!--        <start-class>com.skypro.sockswarehouse.SocksWarehouseApplication</start-class>-->
     </properties>
     <dependencies>
         <dependency>
